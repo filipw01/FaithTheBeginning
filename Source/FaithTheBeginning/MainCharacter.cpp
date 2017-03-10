@@ -46,7 +46,11 @@ void AMainCharacter::Tick( float DeltaTime )
 	{
 		CurrentVelocity.Z = 0.0f;
 	}
-	if(CurrentVelocity.Z<=0.0f && ActorLocation.Z>=30.0f)
+	if(CurrentVelocity.Z<0.0f)
+	{
+		CurrentVelocity.Z -= 100.0f;
+	}
+	if(CurrentVelocity.Z==0.0f && ActorLocation.Z>=30.0f)
 	{
 		CurrentVelocity.Z -= 100.0f;
 	}
