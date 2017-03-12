@@ -11,13 +11,6 @@ AMainCharacter::AMainCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
-
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-	VisibleComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("VisibleComponent"));
-	UCameraComponent* Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	Camera->SetupAttachment(RootComponent);
-	Camera->SetRelativeRotation(FRotator(0.0f, -90.0f, 0.0f));
-	Camera->SetRelativeLocation(FVector(0.0f, 250.0f, 100.0f));
 }
 
 // Called when the game starts or when spawned
@@ -31,10 +24,10 @@ void AMainCharacter::BeginPlay()
 void AMainCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
-	ActorLocation = GetActorLocation();
 	
 	if(!CurrentVelocity.IsZero())
-	{
+	{	
+		ActorLocation = GetActorLocation();
 		FVector NewLocation = ActorLocation + (CurrentVelocity * DeltaTime);
 		SetActorLocation(NewLocation);
 	}
@@ -42,7 +35,7 @@ void AMainCharacter::Tick( float DeltaTime )
 	{
 		CurrentVelocity.Z -= 100.0f;
 	}
-	if(ActorLocation.Z<=30.0f)
+	if(ActorLocation.Z<=20.0f)
 	{
 		CurrentVelocity.Z = 0.0f;
 	}

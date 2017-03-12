@@ -26,7 +26,5 @@ public:
 	void Move(float value);
 	void DoJump();
 	FVector ActorLocation;
-	UPROPERTY(EditAnywhere)
-	USceneComponent* VisibleComponent;
 	FVector CurrentVelocity;
 };
