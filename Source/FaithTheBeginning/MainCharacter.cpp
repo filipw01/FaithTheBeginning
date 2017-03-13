@@ -25,28 +25,22 @@ void AMainCharacter::Tick( float DeltaTime )
 {
 	Super::Tick( DeltaTime );
 	
+	
 	if(!CurrentVelocity.IsZero())
 	{	
 		ActorLocation = GetActorLocation();
 		FVector NewLocation = ActorLocation + (CurrentVelocity * DeltaTime);
 		SetActorLocation(NewLocation);
 	}
-	if(CurrentVelocity.Z > 0.0f)
+	if (CurrentVelocity.Z > 0.0f || CurrentVelocity.Z<0.0f || CurrentVelocity.Z == 0.0f && ActorLocation.Z >= 100.0f)
 	{
 		CurrentVelocity.Z -= 100.0f;
 	}
-	if(ActorLocation.Z<=20.0f)
+	if (ActorLocation.Z <= 100.0f)
 	{
 		CurrentVelocity.Z = 0.0f;
 	}
-	if(CurrentVelocity.Z<0.0f)
-	{
-		CurrentVelocity.Z -= 100.0f;
-	}
-	if(CurrentVelocity.Z==0.0f && ActorLocation.Z>=30.0f)
-	{
-		CurrentVelocity.Z -= 100.0f;
-	}
+	
 
 }
 
@@ -60,7 +54,7 @@ void AMainCharacter::SetupPlayerInputComponent(class UInputComponent* InputCompo
 
 void AMainCharacter::Move(float value)
 {
-	CurrentVelocity.X = FMath::Clamp(value, -1.0f, 1.0f)*100.0f;
+	CurrentVelocity.X = FMath::Clamp(value, -1.0f, 1.0f)*200.0f;
 }
 void AMainCharacter::DoJump()
 {
