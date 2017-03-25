@@ -11,8 +11,8 @@ public class NewBehaviourScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
-
+    public int speed;
+    public Vector3 rotation;
     // Update is called once per frame
     void Update()
     {
@@ -20,16 +20,17 @@ public class NewBehaviourScript : MonoBehaviour
 
         if (Input.GetTouch(0).phase == TouchPhase.Stationary)
         {
-            transform.Translate(1 * Time.deltaTime, 0, 0);
+            transform.Translate(speed * Time.deltaTime, 0, 0);
         }
         if (Input.GetTouch(0).phase == TouchPhase.Moved)
         {
-            transform.Translate(-1 * Time.deltaTime, 0, 0);
+            transform.Translate(-speed * Time.deltaTime, 0, 0);
+            transform.Rotate(rotation);
         }
 
         if (Input.GetTouch(1).phase == TouchPhase.Began)
         {
-            rb.AddForce(new Vector3(0, 10, 0), ForceMode2D.Impulse);
+            rb.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
         }
     }
 }
