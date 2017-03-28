@@ -9,24 +9,24 @@ public class NewBehaviourScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        anim = GetComponent<Animator>();
+        anim = GetComponent<Animation>();
         rb = GetComponent<Rigidbody2D>();
     }
     public int speed;
-    public Animator anim;
+    public Animation anim;
     public Vector2 position;
     // Update is called once per frame
     void Update()
     {
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime;
+        transform.Translate(x, 0, 0);
 
-        string a = "a";
-        int layer = -1;
-        if (Input.GetTouch(0).position.x >= position.x )
+        if (Input.GetTouch(0).position.x >= position.x)
         {
             transform.Translate(speed * Time.deltaTime, 0, 0);
-            anim.Play(a,layer);
+            anim.Play();
         }
-        if (Input.GetTouch(0).position.x != position.x)
+        if (Input.GetTouch(0).position.x <= position.x)
         {
             transform.Translate(-speed * Time.deltaTime, 0, 0);
             anim.Stop();
