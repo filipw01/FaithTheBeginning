@@ -18,7 +18,7 @@ public class NewBehaviourScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var x = Input.GetAxis("Horizontal") * Time.deltaTime;
+        var x = Input.GetAxis("Horizontal") * Time.deltaTime *speed;
         transform.Translate(x, 0, 0);
 
         if (Input.GetTouch(0).position.x >= position.x)
