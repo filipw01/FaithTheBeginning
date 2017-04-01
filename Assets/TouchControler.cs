@@ -3,10 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class TouchControler : MonoBehaviour
-{
-    
-
+public class TouchControler : MonoBehaviour{
     // Use this for initialization
     void Start()
     {
@@ -15,18 +12,13 @@ public class TouchControler : MonoBehaviour
     }
     bool facingRight = true;
     public int speed;
-    public Animation anim;
     public Animator animator;
-    public Vector2 position;
     public Rigidbody2D rb;
+    public Vector2 position;
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetTouch(2).phase == TouchPhase.Began)
-        {
-            SceneManager.LoadScene("scene");
-        }
-        if (Input.GetTouch(0).position.x >= position.x )
+        if (Input.GetTouch(0).position.x > position.x)
         {
             if (facingRight)
             {
@@ -34,7 +26,7 @@ public class TouchControler : MonoBehaviour
             }
             else Flip();
         }
-        if (Input.GetTouch(0).position.x <= position.x )
+        if (Input.GetTouch(0).position.x < position.x)
         {
             if (!facingRight)
             {
@@ -42,17 +34,21 @@ public class TouchControler : MonoBehaviour
             }
             else Flip();
         }
-        if (Input.GetTouch(0).position.x <= position.x || Input.GetTouch(0).position.x >= position.x)
+        if (Input.GetTouch(0).phase == TouchPhase.Moved|| Input.GetTouch(0).phase == TouchPhase.Stationary)
         {
             animator.SetBool("IsWalking", true);
-        }
-        else animator.SetBool("IsWalking", false);
+        }else animator.SetBool("IsWalking", false);
 
-        if (Input.GetTouch(1).phase == TouchPhase.Began || Input.GetKey(KeyCode.Space))
+        if (Input.GetTouch(1).phase == TouchPhase.Began)
         {
-            rb.AddForce(new Vector3(0, 1, 0), ForceMode2D.Impulse);
+            rb.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
+        }
+        if (Input.GetTouch(2).phase == TouchPhase.Began)
+        {
+            SceneManager.LoadScene("scene");
         }
     }
+
     void Flip()
     {
         facingRight = !facingRight;

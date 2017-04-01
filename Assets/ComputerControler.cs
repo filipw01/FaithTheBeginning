@@ -3,17 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ComputerControler : MonoBehaviour {
-
-    // Use this for initialization
+   // Use this for initialization
     void Start()
     {
-        anim = GetComponent<Animation>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
     bool facingRight = true;
     public int speed;
-    public Animation anim;
     public Animator animator;
     public Rigidbody2D rb;
     // Update is called once per frame
