@@ -9,12 +9,13 @@ public class TouchControler : MonoBehaviour{
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        position.Set(Screen.width/2, Screen.height/2);
     }
     bool facingRight = true;
     public int speed;
     public Animator animator;
     public Rigidbody2D rb;
-    public Vector2 position;
+    private Vector2 position;
     // Update is called once per frame
     void Update()
     {
