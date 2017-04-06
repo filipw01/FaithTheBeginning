@@ -17,13 +17,15 @@ public class FadeInOutScript : MonoBehaviour {
     public Color myColor2;
     private Vector3 cameraPosition;
     private bool isFading=false;
+    public Rigidbody2D rb;
     // Update is called once per frame
     void Update()
     {
         if (renderer.color.a >= myColor2.a)
             {
                 isFading = false;
-            }
+            rb.position = GameObject.Find("teleport").transform.position;
+        }
         if ((gameobject.transform.position.x >= positionMin.x && gameobject.transform.position.y >= positionMin.y && 
             gameobject.transform.position.x <= positionMax.x && gameobject.transform.position.y <= positionMax.y &&
             Input.GetTouch(1).phase == TouchPhase.Began) || isFading==true)
@@ -31,7 +33,7 @@ public class FadeInOutScript : MonoBehaviour {
             
             renderer.color = new Color(myColor.r, myColor.g, myColor.b,myColor.a += fadeSpeed);
             isFading = true;
-            
+
         }
         else
         {

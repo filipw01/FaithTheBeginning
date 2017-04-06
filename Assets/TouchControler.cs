@@ -51,8 +51,8 @@ public class TouchControler : MonoBehaviour{
             if (Advertisement.IsReady()&&enableAds)
             {
                 Advertisement.Show();
-                SceneManager.LoadScene("scene");
-            }
+                
+            }SceneManager.LoadScene("scene");
         }
     }
 
