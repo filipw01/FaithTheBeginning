@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.Advertisements;
 using UnityEngine;
 
 public class TouchControler : MonoBehaviour{
@@ -9,13 +10,21 @@ public class TouchControler : MonoBehaviour{
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+<<<<<<< HEAD
         position.Set(Screen.width/2, Screen.height/2);
+=======
+        position.Set(Screen.width / 2, Screen.height / 2);
+>>>>>>> refs/remotes/origin/FaderPrototype
     }
     bool facingRight = true;
     public int speed;
     public Animator animator;
     public Rigidbody2D rb;
     private Vector2 position;
+<<<<<<< HEAD
+=======
+    public bool enableAds = false;
+>>>>>>> refs/remotes/origin/FaderPrototype
     // Update is called once per frame
     void Update()
     {
@@ -46,7 +55,11 @@ public class TouchControler : MonoBehaviour{
         }
         if (Input.GetTouch(2).phase == TouchPhase.Began)
         {
-            SceneManager.LoadScene("scene");
+            if (Advertisement.IsReady()&&enableAds)
+            {
+                Advertisement.Show();
+                
+            }SceneManager.LoadScene("scene");
         }
     }
 

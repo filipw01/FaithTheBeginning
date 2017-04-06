@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: f4a34c4c2ab5fbf43bdd42e276dbb600
 timeCreated: 1491165706
+=======
+guid: 7773c4c4474cb1e4d9f59c26ba5d7919
+timeCreated: 1491235756
+>>>>>>> refs/remotes/origin/FaderPrototype
 licenseType: Free
 AudioImporter:
   serializedVersion: 6
@@ -11,6 +16,7 @@ AudioImporter:
     compressionFormat: 1
     quality: 1
     conversionMode: 0
+<<<<<<< HEAD
   platformSettingOverrides:
     7:
       loadType: 0
@@ -19,6 +25,9 @@ AudioImporter:
       compressionFormat: 1
       quality: 1
       conversionMode: 0
+=======
+  platformSettingOverrides: {}
+>>>>>>> refs/remotes/origin/FaderPrototype
   forceToMono: 0
   normalize: 1
   preloadAudioData: 1
