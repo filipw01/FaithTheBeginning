@@ -4,9 +4,7 @@ using System.Collections;
 public class ItemClass : MonoBehaviour 
 {
 	public string itemName;
-	public Texture itemTexture;
-	public int width;
-	public int height;
+    public Texture itemTexture;
 	public bool drawn = false;
     public string opis;
     public bool isEquiped = false;
