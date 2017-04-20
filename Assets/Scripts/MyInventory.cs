@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 
@@ -5,14 +6,17 @@ public class MyInventory : MonoBehaviour
 {
     private bool hashit = false;
 
-	public Texture item;
+	private Texture item;
 	public Texture defaultTexture;
-       public Collider2D PickupCollider;
-       public Collider2D MainCharacterCollider;
-    public GameObject pickup;
+       private Collider2D PickupCollider;
+       private Collider2D MainCharacterCollider;
+    private GameObject pickup;
 	int gridWidth = 4;
 	int gridHeight = 3;
-   
+    public Texture textureOne;
+    public Texture textureTwo;
+    public Texture textureThree;
+
 
     bool bWeaponEquiped = false;
 	bool bShieldEquiped = false;
@@ -25,7 +29,6 @@ public class MyInventory : MonoBehaviour
 
     public GUIStyle lblItemDescrStyle;
 
-
     public struct Inventar
     {
         public string itemName;
@@ -34,27 +37,42 @@ public class MyInventory : MonoBehaviour
         public string opis;
         public bool occupiedCell;
         public int firstCell;
+        public int textureNumber;
     }
    public Inventar[] charInventory;
 
     public int invL;
     public int invT;
+    public string[] pickups = {"HandGrip","Sword"};
+
+    private int textureNumer;
 
 
     void Start()
     {
+        MainCharacterCollider = GetComponent<Collider2D>();
+        
         charInventory = new Inventar[gridWidth * gridHeight];
         //invL = invT = 20;
     }
 
     void Update()
     {
-        if (MainCharacterCollider.IsTouching(PickupCollider))
+         textureNumer = 0;
+        foreach (var name in pickups)
         {
-            AddItemToInventory(pickup.GetComponent<ItemClass>());
-            Destroy(pickup.GetComponent<SpriteRenderer>());
-            Destroy(pickup.GetComponent<PolygonCollider2D>());
+         
+            if (MainCharacterCollider.IsTouching(GameObject.Find(name).GetComponent<Collider2D>()))
+                {
+                     pickup = GameObject.Find(name);
+                     PickupCollider = pickup.GetComponent<Collider2D>();
+                    charInventory[AddItemToInventory(pickup.GetComponent<ItemClass>())].textureNumber=textureNumer;
+                     Destroy(pickup.GetComponent<SpriteRenderer>());
+                     Destroy(pickup.GetComponent<Collider2D>());
+                }
+            textureNumer++;
         }
+        
     }
 
 
@@ -68,47 +86,21 @@ public class MyInventory : MonoBehaviour
 
             if (SlotsRemaining() >= 1)    
             {
-                bool firstFoundLocation = true;                  
-                                                                 
-                int count = 0;                                   
+                bool firstFoundLocation = true;                                                    
                                                                    
                 for(int i = 0; i < gridWidth; i ++) 
                 {
                     for(int t = 0; t < gridHeight; t++)    
                     {
                         if (charInventory[i + (gridHeight * t)].occupiedCell != true)  
-                        {         
-                            for(int j = 0; j < 1; j++)                
+                        {
+                            if (firstFoundLocation)
                             {
-                                
-                                    for( int k = 0; k < 1; k++)   
-                                    {
-                                        if (charInventory[i + (gridHeight * (t + k)) + j].occupiedCell != true)
-                                        {
-                                            if(firstFoundLocation) 
-                                            {
-                                                firstFoundLocation = false; 
-                                                                            
-                                                intialIndexLocation = i+(gridWidth*t); 
-                                            }
-                                            count+=1;     
-                                            if(count == 1)
-                                            {
-         
-                                                break;
-                                            }
-                                        }
-                                    }
+                                firstFoundLocation = false;
+
+                                intialIndexLocation = i + (gridWidth * t);
                             }
-                            if(count >= 1)
-                            {
-                                break;
-                            } else if(count < 1)
-                            {
-                                firstFoundLocation = true;
-                                count = 0;
-                                intialIndexLocation = -1;
-                            }
+                            
                         }
                     }  
                 }
@@ -120,22 +112,17 @@ public class MyInventory : MonoBehaviour
             }
             if(intialIndexLocation > -1) 
             {
-                bool whentodraw=true;
-                for(int i = 0; i < 1; i++)
-                {
-                    for(int t = 0; t < 1; t++)
-                    {
-
-                        charInventory[intialIndexLocation + i + (gridHeight * t)].drawn = true;
-                        if (whentodraw) charInventory[intialIndexLocation + i + (gridHeight * t)].drawn = false;
-                        charInventory[intialIndexLocation + i + (gridHeight * t)].itemName = item.itemName;
-                        charInventory[intialIndexLocation + i + (gridHeight * t)].itemTexture = item.itemTexture;
-                        charInventory[intialIndexLocation + i + (gridHeight * t)].opis = item.opis;
-                        charInventory[intialIndexLocation + i + (gridHeight * t)].occupiedCell = true;
-                        charInventory[intialIndexLocation + i + (gridHeight * t)].firstCell = intialIndexLocation;
-                        whentodraw=false;
-                    }
-                }
+                
+              
+                        charInventory[intialIndexLocation].drawn = true;
+                         charInventory[intialIndexLocation].drawn = false;
+                        charInventory[intialIndexLocation].itemName = item.itemName;
+                        charInventory[intialIndexLocation].itemTexture = item.itemTexture;
+                        charInventory[intialIndexLocation].opis = item.opis;
+                        charInventory[intialIndexLocation].occupiedCell = true;
+                        charInventory[intialIndexLocation].firstCell = intialIndexLocation;
+                       
+             
             }
         }
         return intialIndexLocation;
@@ -154,10 +141,6 @@ public class MyInventory : MonoBehaviour
         }
     }
 
-           
-    string txtWidth = "";
-    string txtHeight = "";
-           
     void OnGUI()
     {
 
@@ -176,8 +159,23 @@ public class MyInventory : MonoBehaviour
                     Inventar temp = charInventory[i + (gridHeight * t)];
                     if(!temp.drawn)
                     {
-                        GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), item);
-                        temp.drawn = true;
+                        switch (temp.textureNumber)
+                        {
+                            case 0:
+                                GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), textureOne);
+                                temp.drawn = true;
+                                break;
+                            case 1:
+                                GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), textureTwo);
+                                temp.drawn = true;
+                                break;
+                            case 2:
+                                GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), textureThree);
+                                temp.drawn = true;
+                                break;
+
+                        }
+                        
                     }
                 }
             }
