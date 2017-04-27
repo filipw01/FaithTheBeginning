@@ -11,8 +11,8 @@ public class MyInventory : MonoBehaviour
        private Collider2D PickupCollider;
        private Collider2D MainCharacterCollider;
     private GameObject pickup;
-	int gridWidth = 4;
-	int gridHeight = 3;
+	int gridWidth = 9;
+	int gridHeight = 1;
     public Texture textureOne;
     public Texture textureTwo;
     public Texture textureThree;
