@@ -159,7 +159,7 @@ public class MyInventory : MonoBehaviour
                     Inventar temp = charInventory[i + (gridHeight * t)];
                     if(!temp.drawn)
                     {
-                        switch (temp.textureNumber)
+                        switch (temp.textureNumber%3)
                         {
                             case 0:
                                 GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), textureOne);
