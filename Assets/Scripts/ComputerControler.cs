@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComputerControler : MonoBehaviour {
-   // Use this for initialization
+public class ComputerControler : MonoBehaviour
+{
+    // Use this for initialization
     void Start()
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
+
     bool facingRight = true;
     public int speed;
     public Animator animator;
     public Rigidbody2D rb;
+    private bool controls = false;
     // Update is called once per frame
     void Update()
     {
@@ -36,7 +39,8 @@ public class ComputerControler : MonoBehaviour {
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
         {
             animator.SetBool("IsWalking", true);
-        }else animator.SetBool("IsWalking", false);
+        }
+        else animator.SetBool("IsWalking", false);
 
         if (Input.GetKey(KeyCode.Space))
         {
@@ -50,5 +54,10 @@ public class ComputerControler : MonoBehaviour {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+    }
+
+    public void GiveBackControls()
+    {
+        controls = true;
     }
 }

@@ -152,7 +152,7 @@ public class MyInventory : MonoBehaviour
             {
                 if (charInventory[i + (gridHeight * t)].occupiedCell != true)
                 {
-                    GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), defaultTexture);
+                    GUI.DrawTexture(new Rect((invL + (i * 100)), invT + (t * 100), 100, 100), defaultTexture);
                 }
                 else
                 {
@@ -162,15 +162,15 @@ public class MyInventory : MonoBehaviour
                         switch (temp.textureNumber%3)
                         {
                             case 0:
-                                GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), textureOne);
+                                GUI.DrawTexture(new Rect((invL + (i * 100)), invT + (t * 100), 100, 100), textureOne);
                                 temp.drawn = true;
                                 break;
                             case 1:
-                                GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), textureTwo);
+                                GUI.DrawTexture(new Rect((invL + (i * 100)), invT + (t * 100), 100, 100), textureTwo);
                                 temp.drawn = true;
                                 break;
                             case 2:
-                                GUI.DrawTexture(new Rect((invL + (i * 30)), invT + (t * 30), 30, 30), textureThree);
+                                GUI.DrawTexture(new Rect((invL + (i * 100)), invT + (t * 100), 100, 100), textureThree);
                                 temp.drawn = true;
                                 break;
 
