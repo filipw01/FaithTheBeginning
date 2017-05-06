@@ -9,18 +9,22 @@ public class TouchControler : MonoBehaviour{
     void Start()
     {
         animator = GetComponent<Animator>();
+        rotator = new Quaternion(0, 0, 0, 0);
         rb = GetComponent<Rigidbody2D>();
         position.Set(Screen.width / 2, Screen.height / 2);
     }
+    private Quaternion rotator;
     bool facingRight = true;
     public int speed;
     public Animator animator;
     public Rigidbody2D rb;
     private Vector2 position;
     public bool enableAds = false;
+    public float time;
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = rotator;
         if (Input.GetTouch(0).position.x > position.x)
         {
             if (facingRight)
@@ -42,9 +46,10 @@ public class TouchControler : MonoBehaviour{
             animator.SetBool("IsWalking", true);
         }else animator.SetBool("IsWalking", false);
 
-        if (Input.GetTouch(1).phase == TouchPhase.Began)
+        if (Input.GetTouch(1).phase == TouchPhase.Began && time < Time.time - 0.9)
         {
-            rb.AddForce(new Vector3(0, 5, 0), ForceMode2D.Impulse);
+            time = Time.time;
+            rb.AddForce(new Vector3(0, 3.5f, 0), ForceMode2D.Impulse);
         }
         if (Input.GetTouch(2).phase == TouchPhase.Began)
         {

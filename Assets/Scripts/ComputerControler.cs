@@ -9,16 +9,21 @@ public class ComputerControler : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
+        rotator= new Quaternion(0,0,0,0);
+        time = Time.time;
     }
 
+    private Quaternion rotator;
     bool facingRight = true;
     public int speed;
     public Animator animator;
     public Rigidbody2D rb;
     private bool controls = false;
+    public float time;
     // Update is called once per frame
     void Update()
     {
+        transform.rotation = rotator;
         if (Input.GetKey(KeyCode.D))
         {
             if (facingRight)
@@ -42,9 +47,10 @@ public class ComputerControler : MonoBehaviour
         }
         else animator.SetBool("IsWalking", false);
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space)&& time<Time.time - 0.9)
         {
-            rb.AddForce(new Vector3(0, 1, 0), ForceMode2D.Impulse);
+            time = Time.time;
+            rb.AddForce(new Vector3(0, 3.5f, 0), ForceMode2D.Impulse);
         }
     }
 
@@ -55,6 +61,8 @@ public class ComputerControler : MonoBehaviour
         theScale.x *= -1;
         transform.localScale = theScale;
     }
+
+    
 
     public void GiveBackControls()
     {
